@@ -26,6 +26,7 @@ public class PlayerRunState : PlayerState
     public override void ExitState()
     {
         base.ExitState();
+        player.rb.linearVelocity = Vector2.zero;
     }
 
     public override void FrameUpdate()
@@ -51,7 +52,8 @@ public class PlayerRunState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.rb.AddForce(player.moveInput * player.speed);
+        player.rb.linearVelocity = player.moveInput * player.speed;
+        //player.rb.AddForce(player.moveInput * player.speed,ForceMode2D.Force);
     }
 
     public void Animations()

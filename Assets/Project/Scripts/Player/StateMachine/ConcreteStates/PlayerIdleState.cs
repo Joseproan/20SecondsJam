@@ -31,6 +31,7 @@ public class PlayerIdleState : PlayerState
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+        //player.rb.AddForce(Vector2.zero);
         //if (player.moveInput.x == 0 && player.moveInput.y == 0) lastMoveDirection = player.moveInput;
         if(player.moveInput.magnitude > 0.1f) player.stateMachine.ChangeState(player.runState);
 

@@ -69,7 +69,7 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
     private void Update()
     {
         GetInputs();
-
+        Debug.Log(stateMachine.CurrentPlayerState);
         stateMachine.CurrentPlayerState.FrameUpdate();
     }
 
