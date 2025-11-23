@@ -10,6 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     //INPUTS
     private InputAction move;
+    private InputAction look;
     private InputAction roll;
     private InputAction spinOrb;
     private InputAction spinRoulette;
@@ -18,6 +19,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     //BOOLS
     private Vector2 moveInput;
+    private Vector2 mousePos;
     private bool rolling,spinningOrb,spinningRoulette,setPause,infoWindowOpening;
     private float timer, rollLongTime;
     private Animator anim;
@@ -33,7 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         MoveInput();
-
+        MousePosition();
 
         if (roll.IsPressed())
         {
@@ -60,6 +62,9 @@ public class PlayerInputHandler : MonoBehaviour
         // Movimiento: habilitar la acci�n de movimiento.
         move = playerControls.Player.Movement;
         move.Enable();
+
+        look = playerControls.Player.MousePos;
+        look.Enable();
 
         roll = playerControls.Player.Roll;
         roll.Enable();
@@ -91,7 +96,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         // Movimiento: deshabilitar la acci�n de movimiento.
         move.Disable();
-
+        look.Disable();
         roll.Disable();
 
         //spinOrb.Disable();
@@ -107,7 +112,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         moveInput = move.ReadValue<Vector2>();
     }
-
+    public void MousePosition()
+    {
+        mousePos = look.ReadValue<Vector2>();
+    }
     //SETTERS
     private void RollInput(InputAction.CallbackContext context)
     {
@@ -129,6 +137,10 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 GetMoveInput()
     {
         return moveInput;
+    }
+    public Vector2 GetMousePosition()
+    {
+        return mousePos;
     }
     public bool GetRollInput(bool input)
     {

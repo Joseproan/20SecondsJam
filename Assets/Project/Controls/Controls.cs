@@ -136,6 +136,33 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""f184ea9f-ba14-440b-8ea7-a86307ce2e6c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""d895c63b-4f24-4d8b-b9de-bea8cbe19563"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drink"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9cd740a-827d-423d-ab64-2bfa0c55c83e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -435,6 +462,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""InfoWindow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e77f58d-1f8a-4500-903c-661ef0889297"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a545c7e-9193-4c7f-a4ec-712193dda5c2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drink"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79f142a4-0a74-4f5d-a6a0-bea94cc7045e"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -448,6 +508,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_SpinRoulette = m_Player.FindAction("SpinRoulette", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_InfoWindow = m_Player.FindAction("InfoWindow", throwIfNotFound: true);
+        m_Player_MousePos = m_Player.FindAction("MousePos", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_Drink = m_Player.FindAction("Drink", throwIfNotFound: true);
     }
 
     ~@Controls()
@@ -533,6 +596,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SpinRoulette;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_InfoWindow;
+    private readonly InputAction m_Player_MousePos;
+    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_Drink;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -564,6 +630,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/InfoWindow".
         /// </summary>
         public InputAction @InfoWindow => m_Wrapper.m_Player_InfoWindow;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/MousePos".
+        /// </summary>
+        public InputAction @MousePos => m_Wrapper.m_Player_MousePos;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Attack".
+        /// </summary>
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Drink".
+        /// </summary>
+        public InputAction @Drink => m_Wrapper.m_Player_Drink;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -605,6 +683,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @InfoWindow.started += instance.OnInfoWindow;
             @InfoWindow.performed += instance.OnInfoWindow;
             @InfoWindow.canceled += instance.OnInfoWindow;
+            @MousePos.started += instance.OnMousePos;
+            @MousePos.performed += instance.OnMousePos;
+            @MousePos.canceled += instance.OnMousePos;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @Drink.started += instance.OnDrink;
+            @Drink.performed += instance.OnDrink;
+            @Drink.canceled += instance.OnDrink;
         }
 
         /// <summary>
@@ -631,6 +718,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @InfoWindow.started -= instance.OnInfoWindow;
             @InfoWindow.performed -= instance.OnInfoWindow;
             @InfoWindow.canceled -= instance.OnInfoWindow;
+            @MousePos.started -= instance.OnMousePos;
+            @MousePos.performed -= instance.OnMousePos;
+            @MousePos.canceled -= instance.OnMousePos;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @Drink.started -= instance.OnDrink;
+            @Drink.performed -= instance.OnDrink;
+            @Drink.canceled -= instance.OnDrink;
         }
 
         /// <summary>
@@ -706,5 +802,26 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInfoWindow(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MousePos" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMousePos(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Attack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnAttack(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Drink" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDrink(InputAction.CallbackContext context);
     }
 }

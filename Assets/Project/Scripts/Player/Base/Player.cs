@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
     public bool dashing { get; set; }
 
     public Vector2 moveInput { get; set; }
+    public Vector2 mousePos { get; set; }
     #endregion
 
     #region Health Checks
@@ -69,7 +70,10 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
     private void Update()
     {
         GetInputs();
-        Debug.Log(stateMachine.CurrentPlayerState);
+        Vector3 newPousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 lookDir = new Vector2(newPousePos.x - transform.position.x, newPousePos.y - transform.position.y);
+        transform.up = lookDir.normalized;
+        Debug.Log(mousePos);
         stateMachine.CurrentPlayerState.FrameUpdate();
     }
 
@@ -80,6 +84,7 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
     public void GetInputs()
     {
         moveInput = inputHandler.GetMoveInput();
+        mousePos = inputHandler.GetMousePosition();
         dashing = inputHandler.GetRollInput(dashing);
 
     }
