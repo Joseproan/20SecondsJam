@@ -11,16 +11,14 @@ public class PlayerInputHandler : MonoBehaviour
     //INPUTS
     private InputAction move;
     private InputAction look;
-    private InputAction roll;
-    private InputAction spinOrb;
-    private InputAction spinRoulette;
+    private InputAction dash;
     private InputAction pause;
     private InputAction infoWindow;
 
     //BOOLS
     private Vector2 moveInput;
     private Vector2 mousePos;
-    private bool rolling,spinningOrb,spinningRoulette,setPause,infoWindowOpening;
+    private bool dashing,spinningOrb,spinningRoulette,setPause,infoWindowOpening;
     private float timer, rollLongTime;
     private Animator anim;
 
@@ -37,7 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
         MoveInput();
         MousePosition();
 
-        if (roll.IsPressed())
+        if (dash.IsPressed())
         {
             timer += Time.deltaTime;
 
@@ -66,17 +64,13 @@ public class PlayerInputHandler : MonoBehaviour
         look = playerControls.Player.MousePos;
         look.Enable();
 
-        roll = playerControls.Player.Roll;
-        roll.Enable();
-        roll.performed += RollInput;
+        dash = playerControls.Player.Dash;
+        dash.Enable();
+        dash.performed += RollInput;
 
         //spinOrb = playerControls.Player.SpinOrb;
         //spinOrb.Enable();
         //spinOrb.performed += SpinOrbInput;
-
-        spinRoulette = playerControls.Player.SpinRoulette;
-        spinRoulette.Enable();
-        spinRoulette.performed += SpinRoulette;
 
         pause = playerControls.Player.Pause;
         pause.Enable();
@@ -97,11 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
         // Movimiento: deshabilitar la acci�n de movimiento.
         move.Disable();
         look.Disable();
-        roll.Disable();
-
-        //spinOrb.Disable();
-
-        spinRoulette.Disable();
+        dash.Disable();
 
         pause.Disable();
         
@@ -119,7 +109,7 @@ public class PlayerInputHandler : MonoBehaviour
     //SETTERS
     private void RollInput(InputAction.CallbackContext context)
     {
-        rolling = true; // Se activa solo una vez al presionar el botón
+        dashing = true; // Se activa solo una vez al presionar el botón
     }
     private void SpinOrbInput(InputAction.CallbackContext context)
     {
@@ -144,8 +134,8 @@ public class PlayerInputHandler : MonoBehaviour
     }
     public bool GetRollInput(bool input)
     {
-        input = rolling;
-        rolling = false;
+        input = dashing;
+        dashing = false;
         return input;
     }
     public bool GetSpinOrbInput(bool input)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerRunState : PlayerState
 {
+    public float acceleration = 10f;
     private GameObject _footstep;
     public PlayerRunState(Player player, PlayerStateMachine playerStateMachine) : base(player, playerStateMachine)
     {
@@ -40,7 +41,7 @@ public class PlayerRunState : PlayerState
         {
             player.stateMachine.ChangeState(player.idleState);
         }
-        //else if (player.rolling && !player.playerHealth.isSlowDown) player.stateMachine.ChangeState(player.rollState);
+        else if (player.dashing && !player.playerHealth.isSlowDown) player.stateMachine.ChangeState(player.rollState);
     }
 
     private void RotateTowardsMovement()

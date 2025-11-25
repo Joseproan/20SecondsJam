@@ -59,7 +59,6 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
         idleState = new PlayerIdleState(this,stateMachine);
         runState = new PlayerRunState(this,stateMachine);
         rollState = new PlayerRollState(this,stateMachine);
-
     }
 
     private void Start()
@@ -72,8 +71,7 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
         GetInputs();
         Vector3 newPousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 lookDir = new Vector2(newPousePos.x - transform.position.x, newPousePos.y - transform.position.y);
-        transform.up = lookDir.normalized;
-        Debug.Log(mousePos);
+        transform.up = -lookDir.normalized;
         stateMachine.CurrentPlayerState.FrameUpdate();
     }
 
@@ -86,7 +84,6 @@ public class Player : MonoBehaviour, IComponents, IInputs, IPlayerDamage
         moveInput = inputHandler.GetMoveInput();
         mousePos = inputHandler.GetMousePosition();
         dashing = inputHandler.GetRollInput(dashing);
-
     }
 
     public void PlayerMovement()

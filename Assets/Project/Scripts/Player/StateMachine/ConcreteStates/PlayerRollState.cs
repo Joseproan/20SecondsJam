@@ -18,7 +18,7 @@ public class PlayerRollState : PlayerState
     public override void EnterState()
     {
         base.EnterState();
-        player.anim.SetBool("Roll", true);
+        //player.anim.SetBool("Roll", true);
         player.rollInmunity = true;
 
     }
@@ -39,11 +39,11 @@ public class PlayerRollState : PlayerState
             player.rb.linearVelocity = Vector2.zero;
             player.stateMachine.ChangeState(player.idleState);
         }
-        if (player.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > player.rollInmunityAnimation && player.anim.GetCurrentAnimatorStateInfo(0).IsTag("Roll"))
+        /*if (player.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > player.rollInmunityAnimation && player.anim.GetCurrentAnimatorStateInfo(0).IsTag("Roll"))
         {
             player.rollInmunity = false;
-        }
-
+        }*/
+        
         if (player.anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f && player.anim.GetCurrentAnimatorStateInfo(0).IsTag("Roll"))
         {
             player.dashing = false;
